@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { useScrambleText } from '../../hooks/useScrambleText';
 
 export function Hero() {
   const containerRef = useRef(null);
   const textRef = useRef(null);
+  const { displayText, triggerScramble } = useScrambleText("DEVOOPS");
 
   useEffect(() => {
-    // Basic parallax effect
     gsap.to(textRef.current, {
       yPercent: 30,
       ease: 'none',
@@ -17,16 +18,26 @@ export function Hero() {
         scrub: true,
       }
     });
-  }, []);
+
+    const handleSequenceComplete = () => triggerScramble();
+    window.addEventListener('sequence-complete', handleSequenceComplete);
+    
+    const fallbackTimer = setTimeout(() => triggerScramble(), 1500);
+
+    return () => {
+      window.removeEventListener('sequence-complete', handleSequenceComplete);
+      clearTimeout(fallbackTimer);
+    };
+  }, [triggerScramble]);
 
   return (
     <section 
       ref={containerRef} 
-      className="relative h-screen flex flex-col justify-center items-center overflow-hidden border-b border-white/10 px-4"
+      className="relative h-[70vh] flex flex-col justify-center items-center overflow-hidden border-b border-white/10 px-4"
     >
       <div ref={textRef} className="flex flex-col items-center max-w-4xl mx-auto w-full">
-        <h1 className="text-[15vw] md:text-[12vw] leading-[0.85] font-bold text-center uppercase tracking-tighter mix-blend-difference z-10 w-full truncate">
-          DEVOOPS
+        <h1 className="text-[15vw] md:text-[12vw] leading-[0.85] font-bold text-center uppercase tracking-tighter mix-blend-difference z-10 w-full truncate relative h-[1em]">
+          {displayText}
         </h1>
         
         <div className="mt-12 flex flex-col md:flex-row justify-between items-start md:items-end w-full gap-8 border-t border-white/20 pt-8">

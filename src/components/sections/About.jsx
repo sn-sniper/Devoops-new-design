@@ -29,9 +29,7 @@ export function About() {
       <div className="max-w-5xl mx-auto">
         <h2 className="text-sm font-mono tracking-widest text-white/50 mb-12">[ABOUT_DEVOOPS]</h2>
         <div className="text-3xl md:text-5xl lg:text-7xl font-bold uppercase leading-[1.1] mb-16">
-          <div className="overflow-hidden"><div className="reveal-line">FOUNDED IN 2022, DEVOOPS IS</div></div>
-          <div className="overflow-hidden"><div className="reveal-line">BUILT ON A SOLID FOUNDATION OF</div></div>
-          <div className="overflow-hidden"><div className="reveal-line">SUCCESSFUL COLLABORATION.</div></div>
+          <div className="overflow-hidden"><div className="reveal-line">SHAPING DIGITAL SINCE 2022.</div></div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 font-mono text-sm tracking-widest text-white/70 uppercase leading-relaxed">

@@ -11,7 +11,6 @@ export function LiveWatch() {
     return () => clearInterval(timer);
   }, []);
 
-  // Format explicitly as HH:MM:SS
   const formatTime = (date) => {
     const h = String(date.getHours()).padStart(2, '0');
     const m = String(date.getMinutes()).padStart(2, '0');

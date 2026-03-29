@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -37,6 +37,26 @@
     padding: 0;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    position: relative;
+    cursor: crosshair;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url('/pattern.png');
+    background-size: 4.6875rem;
+    height:100%;
+    background-repeat: repeat;
+    opacity: 0.5;
+    z-index: -100;
+    pointer-events: none;
+  }
+
+  ::selection {
+    background-color: white;
+    color: black;
   }
 }
 
@@ -50,4 +70,50 @@
 
 @utility clip-open {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+@layer components {
+  .clip-btn-brutalist {
+    position: relative;
+    border: none !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    clip-path: polygon(100% 0, 100% 72%, 85% 100%, 0 100%, 0 0);
+    z-index: 1;
+  }
+
+  .clip-btn-brutalist::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background-color: var(--color-background);
+    clip-path: polygon(100% 0, 100% 72%, 85% 100%, 0 100%, 0 0);
+    z-index: -1;
+    transition: background-color 0.3s ease;
+  }
+
+  .clip-btn-brutalist:hover::before {
+    background-color: white;
+  }
+
+  .clip-btn-brutalist-contact {
+    position: relative;
+    border: none !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    clip-path: polygon(100% 0, 100% 72%, 92% 100%, 0 100%, 0 0);
+    z-index: 1;
+  }
+
+  .clip-btn-brutalist-contact::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background-color: var(--color-background);
+    clip-path: polygon(100% 0, 100% 72%, 92% 100%, 0 100%, 0 0);
+    z-index: -1;
+    transition: background-color 0.3s ease;
+  }
+
+  .clip-btn-brutalist-contact:hover::before {
+    background-color: white;
+  }
 }

@@ -1,19 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSystemTitle } from '../hooks/useSystemTitle';
+import { DigitalRain } from '../components/ui/DigitalRain';
+import { ScrambleLink } from '../components/ui/ScrambleLink';
 
 export default function NotFound() {
+  useSystemTitle('[SYS.OFF] Where did you go?');
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, []);
+
   return (
-    <div className="min-h-[80vh] flex flex-col justify-center items-center text-center">
-      <div className="relative inline-block">
-        <h1 className="text-7xl md:text-9xl font-bold uppercase tracking-tighter mix-blend-difference text-white">404</h1>
-        <div className="absolute top-1/2 left-0 w-full h-[2px] bg-white -translate-y-1/2 mix-blend-difference"></div>
+    <div className="fixed inset-0 z-50 flex flex-col justify-center items-center text-center overflow-hidden bg-background">
+      <DigitalRain />
+
+      <div className="relative z-10 flex flex-col items-center p-8 bg-black">
+        <div className="relative inline-block">
+          <h1 className="text-7xl md:text-9xl font-bold uppercase tracking-tighter text-white">404</h1>
+          <div className="absolute top-1/2 left-0 w-full h-[2px] bg-white -translate-y-1/2"></div>
+        </div>
+        <p className="mt-8 font-mono text-xl text-white/80 uppercase tracking-widest bg-black px-4 py-1">
+          [SYSTEM ERROR: DIRECTORY NOT FOUND]
+        </p>
+        <ScrambleLink to="/" className="mt-12 px-8 py-4 font-mono text-sm tracking-widest hover:text-black transition-colors uppercase clip-btn-brutalist">
+          RETURN TO ROOT
+        </ScrambleLink>
       </div>
-      <p className="mt-8 font-mono text-xl text-white/50 uppercase tracking-widest">
-        [SYSTEM ERROR: SECTOR NOT FOUND]
-      </p>
-      <Link to="/" className="mt-12 border border-white/20 px-8 py-4 font-mono text-sm tracking-widest hover:bg-white hover:text-black transition-colors uppercase">
-        RETURN TO BASE
-      </Link>
     </div>
   );
 }

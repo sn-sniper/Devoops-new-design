@@ -1,40 +1,116 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+
 import abdallahImg from '../../assets/abdallah.jpg';
 import georgeImg from '../../assets/george.jpg';
 import hassanImg from '../../assets/hassan.jpg';
 import jadImg from '../../assets/jad.jpg';
 
 const teamMembers = [
-  { name: 'ABDALLAH EL-SAYED AHMAD', role: 'CO-FOUNDER', img: abdallahImg },
-  { name: 'GEORGE TERS', role: 'CO-FOUNDER', img: georgeImg },
-  { name: 'HASSAN ASSAAD', role: 'PARTNER', img: hassanImg },
-  { name: 'JAD KADDOUR', role: 'PARTNER', img: jadImg },
+  { id: '001', name: 'ABDALLAH EL-SAYED AHMAD', role: 'CO-FOUNDER', image: abdallahImg },
+  { id: '002', name: 'GEORGE TERS', role: 'CO-FOUNDER', image: georgeImg },
+  { id: '003', name: 'HASSAN ASSAAD', role: 'PARTNER', image: hassanImg },
+  { id: '004', name: 'JAD KADDOUR', role: 'PARTNER', image: jadImg },
 ];
 
 export function Team() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const trackRef = useRef(null);
+  const viewportRef = useRef(null);
+
+  const { contextSafe } = useGSAP({ scope: viewportRef });
+
+  const handleMouseEnter = contextSafe(() => {
+    gsap.to('.viewport-border', { borderColor: 'rgba(255,255,255,0.4)', duration: 0.4, overwrite: 'auto' });
+  });
+
+  const handleMouseLeave = contextSafe(() => {
+    gsap.to('.viewport-border', { borderColor: 'rgba(255,255,255,0.15)', duration: 0.6, overwrite: 'auto' });
+  });
+
+  useGSAP(() => {
+    gsap.to(trackRef.current, { 
+      yPercent: -100 * activeIndex, 
+      duration: 0.6, 
+      ease: 'power4.out',
+      overwrite: 'auto'
+    });
+  }, { dependencies: [activeIndex] });
+
   return (
-    <section className="py-24 border-b border-white/10 px-4">
-      <div className="flex justify-between items-end mb-16">
-        <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight">Team</h2>
+    <section className="h-auto lg:h-screen lg:overflow-hidden border-t border-white/15 grid grid-cols-1 lg:grid-cols-2 relative">
+      
+      <div className="relative flex items-center justify-center p-8 lg:p-16 h-auto lg:h-full z-10">
+        
+        <div 
+          ref={viewportRef}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="relative w-full max-w-sm lg:max-w-md aspect-3/4 pointer-events-auto"
+        >
+          
+          <div className="tl-bracket absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white/80 -translate-x-px -translate-y-px z-30 pointer-events-none" />
+          <div className="tr-bracket absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-white/80 translate-x-px -translate-y-px z-30 pointer-events-none" />
+          <div className="bl-bracket absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-white/80 -translate-x-px translate-y-px z-30 pointer-events-none" />
+          <div className="br-bracket absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white/80 translate-x-px translate-y-px z-30 pointer-events-none" />
+
+          <div className="viewport-border relative w-full h-full overflow-hidden border border-white/15 bg-black/50 z-20">
+          
+          <div className="absolute top-4 left-4 font-mono text-[10px] text-white/50 tracking-widest z-20">
+            [VISUAL_FEED_ACTIVE]
+          </div>
+          <div className="absolute bottom-4 right-4 font-mono text-[10px] text-white/50 tracking-widest z-20">
+            [{String(activeIndex + 1).padStart(3, '0')}/{String(teamMembers.length).padStart(3, '0')}]
+          </div>
+
+          <div ref={trackRef} className="absolute top-0 left-0 w-full h-full flex flex-col will-change-transform z-10">
+            {teamMembers.map((member) => (
+              <div key={member.id} className="w-full h-full shrink-0 bg-background relative group">
+                <img 
+                  src={member.image} 
+                  alt={member.name} 
+                  className="w-full h-full object-cover grayscale opacity-80 mix-blend-luminosity contrast-125 hover:grayscale-0 hover:mix-blend-normal hover:opacity-100 transition-all duration-700" 
+                />
+              </div>
+            ))}
+          </div>
+
+          </div>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {teamMembers.map((member, i) => (
-          <div key={i} className="group relative border border-white/20 p-4">
-            <div className="overflow-hidden bg-white/5 aspect-[3/4] mb-6">
-              <img 
-                src={member.img} 
-                alt={member.name} 
-                className="w-full h-full object-cover grayscale opacity-80 group-hover:scale-95 group-hover:opacity-100 transition-all duration-700 ease-out"
-              />
+      <div className="flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-white/15 px-8 lg:px-16 py-12 lg:py-0 h-auto lg:h-full">
+        {teamMembers.map((member, idx) => {
+          const isActive = activeIndex === idx;
+          
+          return (
+            <div 
+              key={member.id}
+              onMouseEnter={() => setActiveIndex(idx)}
+              className="group cursor-pointer py-6 xl:py-8 border-b border-white/10 last:border-b-0"
+            >
+              <div className={`transition-all duration-500 ease-in-out ${isActive ? 'opacity-100 md:translate-x-4' : 'opacity-30'}`}>
+                
+                <div className="flex flex-wrap items-center gap-3 lg:gap-4 mb-2 xl:mb-3">
+                  <span className="font-mono text-[10px] xl:text-xs text-white bg-white/10 px-2 py-1 uppercase tracking-widest">
+                    [{member.id}]
+                  </span>
+                  <span className="font-mono text-[11px] xl:text-sm tracking-widest text-white/70 uppercase">
+                    {member.role}
+                  </span>
+                </div>
+
+                <h3 className="text-lg sm:text-4xl lg:text-4xl xl:text-5xl uppercase font-black font-sans tracking-tight leading-[0.9] wrap-break-word">
+                  {member.name}
+                </h3>
+                
+              </div>
             </div>
-            <div className="flex justify-between items-center border-t border-white/20 pt-4">
-              <h3 className="font-bold text-xl uppercase tracking-wider">{member.name}</h3>
-              <p className="font-mono text-xs text-white/50">{member.role}</p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
+
     </section>
   );
 }

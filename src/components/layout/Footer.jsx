@@ -14,14 +14,11 @@ export function Footer() {
     const { clientX, clientY } = e;
     const { left, top, width, height } = container.current.getBoundingClientRect();
     
-    // Normalized position from center (-0.5 to 0.5)
     const x = (clientX - left) / width - 0.5;
     const y = (clientY - top) / height - 0.5;
 
-    // Intensity scales based on how far mouse is from the center, or just pure math.random for brutal glitch
     const intensity = Math.abs(x) + Math.abs(y);
     
-    // Animate the feTurbulence base frequency
     gsap.to(filterRef.current, {
       attr: { 
         baseFrequency: `${Math.random() * 0.3 * intensity} ${Math.random() * 0.8 * intensity}` 
@@ -31,7 +28,6 @@ export function Footer() {
       overwrite: 'auto'
     });
 
-    // Animate the displacement map scale
     gsap.to(mapRef.current, {
       attr: { scale: intensity * 150 },
       duration: 0.1,
@@ -61,9 +57,8 @@ export function Footer() {
       ref={container} 
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative py-32 overflow-hidden border-t border-white/10 flex flex-col items-center justify-center min-h-[60vh] bg-background"
+      className="relative py-32 overflow-hidden border-t border-white/10 flex flex-col items-center justify-center min-h-[60vh]"
     >
-      {/* SVG Definitions for the distortion filter */}
       <svg className="hidden">
         <defs>
           <filter id="glitch-filter" x="-20%" y="-20%" width="140%" height="140%">
@@ -93,7 +88,7 @@ export function Footer() {
         DEVOOPS
       </div>
       
-      <div className="absolute bottom-8 flex justify-between items-end w-full px-12 font-mono text-xs text-white/40 uppercase tracking-widest pointer-events-none">
+      <div className="absolute bottom-8 flex justify-between items-end w-full px-12 font-mono text-xs text-white/40 tracking-widest pointer-events-none">
         <div className="space-y-1 text-[10px]">
           <div>T: +961 71 881 429</div>
           <div>T: +1 (619) 873-1807</div>

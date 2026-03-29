@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ServiceCard } from '../ui/ServiceCard';
+import { ServiceCard } from '../components/ui/ServiceCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,11 +29,20 @@ const servicesData = [
   }
 ];
 
-export function Services() {
+export default function Services() {
   const containerRef = useRef(null);
 
   useGSAP(() => {
-    gsap.fromTo('.home-service-card-wrapper', 
+    gsap.from('.header-reveal', {
+      y: 100,
+      opacity: 0,
+      duration: 1.2,
+      stagger: 0.1,
+      ease: 'power4.out',
+      delay: 0.1
+    });
+
+    gsap.fromTo('.service-card-wrapper', 
       { clipPath: 'inset(100% 0 0 0)' },
       {
         clipPath: 'inset(0% 0 0 0)',
@@ -42,7 +51,7 @@ export function Services() {
         ease: 'power3.out',
         clearProps: 'clipPath',
         scrollTrigger: {
-          trigger: '.home-services-grid',
+          trigger: '.services-grid',
           start: 'top 85%',
         }
       }
@@ -50,20 +59,20 @@ export function Services() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="py-24 md:py-32 border-b border-white/10 relative z-10">
+    <div ref={containerRef} className="pt-24 md:pt-32 pb-24 min-h-screen z-10 relative">
       
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 px-4 gap-4">
-        <h2 className="text-5xl md:text-7xl lg:text-8xl font-black font-sans uppercase tracking-tighter leading-none">
-          Services
-        </h2>
-        <span className="font-mono text-xs md:text-sm text-white/50 tracking-widest uppercase md:mb-2">
-          [SYS.OPERATIONS]
-        </span>
+      <div className="mb-20 md:mb-32 overflow-hidden px-4 select-none pointer-events-none">
+        <h1 className="header-reveal text-6xl md:text-8xl lg:text-9xl font-black font-sans uppercase tracking-tighter leading-[0.85] text-white">
+          SYSTEM
+        </h1>
+        <h1 className="header-reveal text-6xl md:text-8xl lg:text-9xl font-black font-sans uppercase tracking-tighter leading-[0.85] text-white/50 ml-0 md:ml-12">
+          CAPABILITIES
+        </h1>
       </div>
 
-      <div className="home-services-grid grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative z-20 px-4 md:px-0">
+      <div className="services-grid grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative z-20">
         {servicesData.map((service, idx) => (
-          <div key={idx} className="home-service-card-wrapper w-full h-full transform will-change-transform">
+          <div key={idx} className="service-card-wrapper w-full h-full transform will-change-transform">
             <ServiceCard 
               title={service.title}
               description={service.description}
@@ -74,6 +83,6 @@ export function Services() {
         ))}
       </div>
 
-    </section>
+    </div>
   );
 }

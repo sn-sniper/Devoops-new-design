@@ -18,7 +18,6 @@ export function useSmoothScroll() {
       touchMultiplier: 2,
     });
 
-    // Integrate with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
     gsap.ticker.add((time) => {
