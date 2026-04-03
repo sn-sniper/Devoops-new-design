@@ -9,6 +9,76 @@
   --font-sans: "Space Grotesk", sans-serif;
 }
 
+:root, .dark, .dark-theme {
+  --violet-1: #0f0e1e;
+  --violet-2: #16142a;
+  --violet-3: #241b53;
+  --violet-4: #301c74;
+  --violet-5: #392584;
+  --violet-6: #433094;
+  --violet-7: #503daa;
+  --violet-8: #624ace;
+  --violet-9: #6e3dfd;
+  --violet-10: #6328ec;
+  --violet-11: #aea8ff;
+  --violet-12: #deddff;
+
+  --violet-a1: #0000fe0f;
+  --violet-a2: #4735fd1c;
+  --violet-a3: #5737fe48;
+  --violet-a4: #5d2dff6b;
+  --violet-a5: #653cff7c;
+  --violet-a6: #6d4aff8d;
+  --violet-a7: #7355fea5;
+  --violet-a8: #7759ffcb;
+  --violet-a9: #6f3dfffd;
+  --violet-a10: #6a2affeb;
+  --violet-a11: #aea8ff;
+  --violet-a12: #deddff;
+
+  --violet-contrast: #fff;
+  --violet-surface: #1c184480;
+  --violet-indicator: #6e3dfd;
+  --violet-track: #6e3dfd;
+}
+
+@supports (color: color(display-p3 1 1 1)) {
+  @media (color-gamut: p3) {
+    :root, .dark, .dark-theme {
+      --violet-1: #0f0e1e;
+      --violet-2: #16142a;
+      --violet-3: #241b53;
+      --violet-4: #301c74;
+      --violet-5: #392584;
+      --violet-6: #433194;
+      --violet-7: #503dab;
+      --violet-8: #624ace;
+      --violet-9: #6e3dfd;
+      --violet-10: #6228ec;
+      --violet-11: #ada0ff;
+      --violet-12: #deddff;
+
+      --violet-a1: color(display-p3 0 0 0.9922 / 0.055);
+      --violet-a2: color(display-p3 0.2902 0.2157 1 / 0.105);
+      --violet-a3: color(display-p3 0.3412 0.2235 1 / 0.268);
+      --violet-a4: color(display-p3 0.349 0.1882 1 / 0.398);
+      --violet-a5: color(display-p3 0.3804 0.2471 0.9961 / 0.465);
+      --violet-a6: color(display-p3 0.4196 0.3098 1 / 0.532);
+      --violet-a7: color(display-p3 0.451 0.3569 1 / 0.62);
+      --violet-a8: color(display-p3 0.4627 0.3647 1 / 0.766);
+      --violet-a9: color(display-p3 0.4196 0.2549 1 / 0.95);
+      --violet-a10: color(display-p3 0.4 0.1804 1 / 0.883);
+      --violet-a11: color(display-p3 0.6941 0.6745 1 / 0.975);
+      --violet-a12: color(display-p3 0.8824 0.8784 1 / 0.988);
+
+      --violet-contrast: #fff;
+      --violet-surface: color(display-p3 0.102 0.0941 0.2588 / 0.5);
+      --violet-indicator: #6e3dfd;
+      --violet-track: #6e3dfd;
+    }
+  }
+}
+
 @layer base {
   ::-webkit-scrollbar {
     width: 6px;
@@ -17,16 +87,16 @@
 
   ::-webkit-scrollbar-track {
     background: var(--color-background);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid #ffffff1a;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
+    background: #ffffff4d;
     border-radius: 0;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.8);
+    background: #ffffffcc;
   }
 
   body {

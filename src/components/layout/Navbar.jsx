@@ -59,6 +59,14 @@ export function Navbar() {
 
   useGSAP(
     () => {
+      gsap.from(containerRef.current, {
+        opacity: 0,
+        y: -20,
+        duration: 1,
+        ease: "power3.out",
+        clearProps: "all",
+      });
+
       tl.current = gsap
         .timeline({ paused: true })
         .to(menuRef.current, {

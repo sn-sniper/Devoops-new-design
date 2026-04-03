@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useScrambleText } from '../../hooks/useScrambleText';
 
-export function ServiceCard({ title, description, technologies, index }) {
+export function ServiceCard({ title, description, technologies, index, onClick }) {
   const containerRef = useRef(null);
   const { displayText, triggerScramble } = useScrambleText(title);
   
@@ -24,6 +24,7 @@ export function ServiceCard({ title, description, technologies, index }) {
       ref={containerRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
       className="relative w-full h-full cursor-crosshair group"
     >
       <div 

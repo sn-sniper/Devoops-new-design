@@ -13,7 +13,7 @@ const servicesData = [
     technologies: ["React", "Vue", "Node.js", "Python"]
   },
   {
-    title: "Mobile App Development",
+    title: "Mobile   Development",
     description: "Cross-platform and native mobile app development focused on performance.",
     technologies: ["React Native", "Flutter"]
   },

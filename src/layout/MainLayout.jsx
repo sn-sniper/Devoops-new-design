@@ -23,7 +23,7 @@ export default function MainLayout() {
       {!sequenceComplete && <InitialLoader onComplete={() => setSequenceComplete(true)} />}
 
       <HUDGrid />
-      <Navbar />
+      {sequenceComplete && <Navbar />}
 
       <div
         id="main-content"
