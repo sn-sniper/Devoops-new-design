@@ -19,7 +19,7 @@ export function LiveWatch() {
   };
 
   return (
-    <div className="font-mono text-[10px] text-white/80 tracking-widest uppercase text-right">
+    <div className="font-mono text-[10px] text-muted tracking-widest uppercase text-right">
       {formatTime(time)}
     </div>
   );

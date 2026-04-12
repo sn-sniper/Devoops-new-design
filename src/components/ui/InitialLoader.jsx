@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useScrambleText } from '../../hooks/useScrambleText';
+import { SunIcon, MoonIcon } from '@radix-ui/react-icons';
+import { useTheme } from '../../context/ThemeContext';
 
 export function InitialLoader({ onComplete }) {
   const [status, setStatus] = useState('initializing'); 
@@ -9,6 +11,7 @@ export function InitialLoader({ onComplete }) {
   const bracketsRef = useRef(null);
   const sloganWrapperRef = useRef(null);
 
+  const { theme, toggleTheme } = useTheme();
   const { displayText } = useScrambleText("WE DO NOT COMPROMISE");
 
   useEffect(() => {
@@ -66,12 +69,12 @@ export function InitialLoader({ onComplete }) {
         <div ref={btnContainerRef} className="flex flex-col items-center gap-6 z-10">
           <button 
             onClick={handleUnlock}
-            className="bg-white text-black font-sans font-black uppercase text-2xl md:text-3xl tracking-widest px-12 py-4 hover:bg-gray-200 transition-colors"
-            style={{ clipPath: 'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%)' }}
+            className="bg-primary text-background font-sans font-black uppercase text-2xl md:text-3xl tracking-widest px-12 py-4 hover:opacity-80 transition-colors"
+            style={{ clipPath: 'polygon(0 0, calc(100% - 1em) 0, 100% 1em, 100% 100%, 0 100%)' }}
           >
             ENTER
           </button>
-          <div className="font-mono text-[10px] tracking-[0.3em] text-white/40 uppercase">
+          <div className="font-mono text-[10px] tracking-[0.3em] text-muted uppercase">
             [AUDIO RECOMMENDED]
           </div>
         </div>
@@ -82,8 +85,8 @@ export function InitialLoader({ onComplete }) {
         className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0"
       >
         <div className="relative flex items-center justify-between aspect-square w-[75vmin]" style={{ fontSize: '30vmin' }}>
-          <span className="font-sans font-thin text-white/20 select-none leading-none absolute left-0">[</span>
-          <span className="font-sans font-thin text-white/20 select-none leading-none absolute right-0">]</span>
+          <span className="font-sans font-thin text-primary/20 select-none leading-none absolute left-0">[</span>
+          <span className="font-sans font-thin text-primary/20 select-none leading-none absolute right-0">]</span>
         </div>
       </div>
       
@@ -95,6 +98,17 @@ export function InitialLoader({ onComplete }) {
           {displayText}
         </h1>
       </div>
+
+      {status === 'awaiting' && (
+        <div className="absolute bottom-8 right-8 z-50">
+          <button 
+            onClick={toggleTheme}
+            className="p-3 border border-hud text-muted hover:text-primary transition-colors bg-background/50 backdrop-blur-sm group"
+          >
+            {theme === 'dark' ? <SunIcon className="w-5 h-5 group-hover:animate-spin-slow" /> : <MoonIcon className="w-5 h-5 group-hover:-rotate-12 transition-transform" />}
+          </button>
+        </div>
+      )}
       
     </div>
   );

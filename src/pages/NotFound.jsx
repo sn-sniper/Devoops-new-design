@@ -21,12 +21,12 @@ export default function NotFound() {
     <div className="fixed inset-0 z-50 flex flex-col justify-center items-center text-center overflow-hidden bg-background">
       <DigitalRain />
 
-      <div className="relative z-10 flex flex-col items-center p-8 bg-black">
+      <div className="relative z-10 flex flex-col items-center p-8 bg-background">
         <div className="relative inline-block">
-          <h1 className="text-7xl md:text-9xl font-bold uppercase tracking-tighter text-white">404</h1>
-          <div className="absolute top-1/2 left-0 w-full h-[2px] bg-white -translate-y-1/2"></div>
+          <h1 className="text-7xl md:text-9xl font-bold uppercase tracking-tighter text-primary">404</h1>
+          <div className="absolute top-1/2 left-0 w-full h-[2px] bg-primary -translate-y-1/2"></div>
         </div>
-        <p className="mt-8 font-mono text-xl text-white/80 uppercase tracking-widest bg-black px-4 py-1">
+        <p className="mt-8 font-mono text-xl text-muted uppercase tracking-widest bg-background px-4 py-1">
           [SYSTEM ERROR: DIRECTORY NOT FOUND]
         </p>
         <ScrambleLink to="/" className="mt-12 px-8 py-4 font-mono text-sm tracking-widest hover:text-black transition-colors uppercase clip-btn-brutalist">

@@ -2,11 +2,31 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0a0a0a;
-  --color-muted: rgba(255, 255, 255, 0.8);
-  --color-hud: rgba(255, 255, 255, 0.15);
+  --color-background: var(--bg-color);
+  --color-primary: var(--text-primary);
+  --color-muted: var(--text-muted);
+  --color-hud: var(--hud-border);
+  --color-inverted: var(--bg-inverted);
   --font-mono: "Space Mono", monospace;
   --font-sans: "Space Grotesk", sans-serif;
+}
+
+:root {
+  --bg-color: #e5e5e5;
+  --text-primary: #0a0a0a;
+  --text-muted: rgba(0, 0, 0, 0.8);
+  --hud-border: rgba(0, 0, 0, 0.2);
+  --bg-inverted: #ffffff;
+  --pattern-filter: invert(1) opacity(0.15);
+}
+
+.dark {
+  --bg-color: #0a0a0a;
+  --text-primary: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.8);
+  --hud-border: rgba(255, 255, 255, 0.15);
+  --bg-inverted: #000000;
+  --pattern-filter: opacity(0.5);
 }
 
 :root, .dark, .dark-theme {
@@ -119,14 +139,14 @@
     background-size: 4.6875rem;
     height:100%;
     background-repeat: repeat;
-    opacity: 0.5;
+    filter: var(--pattern-filter);
     z-index: -100;
     pointer-events: none;
   }
 
   ::selection {
-    background-color: white;
-    color: black;
+    background-color: var(--text-primary);
+    color: var(--color-background);
   }
 }
 
@@ -146,7 +166,7 @@
   .clip-btn-brutalist {
     position: relative;
     border: none !important;
-    background-color: rgba(255, 255, 255, 0.2) !important;
+    background-color: var(--hud-border) !important;
     clip-path: polygon(100% 0, 100% 72%, 85% 100%, 0 100%, 0 0);
     z-index: 1;
   }
@@ -168,7 +188,7 @@
   .clip-btn-brutalist-contact {
     position: relative;
     border: none !important;
-    background-color: rgba(255, 255, 255, 0.2) !important;
+    background-color: var(--hud-border) !important;
     clip-path: polygon(100% 0, 100% 72%, 92% 100%, 0 100%, 0 0);
     z-index: 1;
   }
@@ -185,5 +205,58 @@
 
   .clip-btn-brutalist-contact:hover::before {
     background-color: white;
+  }
+
+  .bracket-btn {
+    position: relative;
+    padding: 0.25em 0.8em;
+    border: 2px solid var(--hud-border); /* robust standard border */
+    background: transparent;
+    user-select: none;
+    white-space: nowrap;
+    transition: all .05s linear;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+  }
+
+  .bracket-btn::before, .bracket-btn::after {
+    content: "";
+    position: absolute;
+    background: var(--color-background);
+    transition: all .2s linear;
+  }
+
+  .bracket-btn::before {
+    width: calc(100% + 6px);
+    height: calc(100% - 0.9em);
+    top: 0.45em;
+    left: -3px;
+    z-index: 1;
+  }
+
+  .bracket-btn::after {
+    width: calc(100% - 1em);
+    height: calc(100% + 6px);
+    top: -3px;
+    left: 0.5em;
+    z-index: 1;
+  }
+
+  .bracket-btn:hover {
+    cursor: crosshair;
+    color: var(--color-primary);
+  }
+
+  .bracket-btn:active {
+    transform: scale(0.95);
+  }
+
+  .bracket-btn > * {
+    z-index: 3;
+    position: relative;
+    font-family: inherit;
+    font-weight: inherit;
   }
 }

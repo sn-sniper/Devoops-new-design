@@ -24,12 +24,12 @@ function FAQItem({ faq, index }) {
   }, [isOpen]);
 
   return (
-    <div className="border-b border-white/10">
+    <div className="border-b border-hud">
       <button 
         onClick={() => setIsOpen(!isOpen)} 
-        className="w-full py-8 flex justify-between items-center text-left hover:bg-white/5 transition-colors px-4 group"
+        className="w-full py-8 flex justify-between items-center text-left hover:bg-primary/5 transition-colors px-4 group text-primary"
       >
-        <span className="font-mono text-sm text-white/50 mr-8">0{index + 1}</span>
+        <span className="font-mono text-sm text-muted mr-8">0{index + 1}</span>
         <span className="flex-1 text-2xl font-bold uppercase tracking-tight">{faq.q}</span>
         <Plus className={`w-6 h-6 transform transition-transform duration-500 ${isOpen ? 'rotate-45' : ''}`} />
       </button>
@@ -37,8 +37,8 @@ function FAQItem({ faq, index }) {
         ref={contentRef} 
         className="h-0 overflow-hidden opacity-0"
       >
-        <div className="px-4 pb-8 pl-[4.5rem]">
-          <p className="font-mono text-sm text-white/70 uppercase tracking-widest max-w-2xl leading-relaxed">
+        <div className="px-4 pb-8 pl-18">
+          <p className="font-mono text-sm text-muted uppercase tracking-widest max-w-2xl leading-relaxed">
             {faq.a}
           </p>
         </div>
@@ -49,10 +49,10 @@ function FAQItem({ faq, index }) {
 
 export function FAQ() {
   return (
-    <section className="py-24 border-b border-white/10">
-      <div className="px-4 mb-16">
+    <section className="py-24 border-b border-hud">
+      <div className="px-4 mb-16 text-primary">
         <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight">INDEXED DATA</h2>
-        <span className="font-mono text-sm text-white/50">[FAQ.MODULE]</span>
+        <span className="font-mono text-sm text-muted">[FAQ.MODULE]</span>
       </div>
       <div>
         {faqs.map((faq, i) => (

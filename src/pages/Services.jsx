@@ -43,10 +43,10 @@ export default function Services() {
       <div ref={containerRef} className="pt-24 md:pt-32 pb-24 min-h-screen z-10 relative">
         
         <div className="mb-20 md:mb-32 overflow-hidden px-4 select-none pointer-events-none">
-          <h1 className="header-reveal text-6xl md:text-8xl lg:text-9xl font-black font-sans uppercase tracking-tighter leading-[0.85] text-white">
+          <h1 className="header-reveal text-6xl md:text-8xl lg:text-9xl font-black font-sans uppercase tracking-tighter leading-[0.85] text-primary">
             SYSTEM
           </h1>
-          <h1 className="header-reveal text-6xl md:text-8xl lg:text-9xl font-black font-sans uppercase tracking-tighter leading-[0.85] text-white/50 ml-0 md:ml-12">
+          <h1 className="header-reveal text-6xl md:text-8xl lg:text-9xl font-black font-sans uppercase tracking-tighter leading-[0.85] text-muted ml-0 md:ml-12">
             CAPABILITIES
           </h1>
         </div>

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import gsap from 'gsap';
+import { useTheme } from '../../context/ThemeContext';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -9,6 +10,7 @@ export function Footer() {
   const container = useRef(null);
   const canvasRef = useRef(null);
   const mousePos = useRef({ x: -1000, y: -1000 });
+  const { theme } = useTheme();
 
   const handleMouseMove = (e) => {
     if (!container.current) return;
@@ -99,13 +101,14 @@ export function Footer() {
           if (dist < hoverRadius) {
             // Calculate a blur falloff (1 in center, 0 at edge)
             const intensity = Math.pow(1 - (dist / hoverRadius), 1);
-            // Mix between white (255) and the violet RGB
-            const r = Math.round(vRgb.r * intensity + 255 * (1 - intensity));
-            const g = Math.round(vRgb.g * intensity + 255 * (1 - intensity));
-            const b = Math.round(vRgb.b * intensity + 255 * (1 - intensity));
+            // Mix between text-primary (255 or 0) and the violet RGB
+            const baseColor = theme === 'dark' ? 255 : 0;
+            const r = Math.round(vRgb.r * intensity + baseColor * (1 - intensity));
+            const g = Math.round(vRgb.g * intensity + baseColor * (1 - intensity));
+            const b = Math.round(vRgb.b * intensity + baseColor * (1 - intensity));
             ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
           } else {
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = theme === 'dark' ? '#ffffff' : '#0a0a0a';
           }
           
           ctx.fillText(cell.char, x, y);
@@ -159,7 +162,7 @@ export function Footer() {
       ro.disconnect();
       st.kill();
     };
-  }, { scope: container });
+  }, [theme]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -176,21 +179,21 @@ export function Footer() {
         <canvas ref={canvasRef} className="w-full h-full block" />
       </div>
 
-      <div className="relative z-20 mt-auto pt-12 flex justify-between items-end w-full px-6 md:px-[10vw] font-mono text-xs text-white/40 tracking-widest pointer-events-auto">
+      <div className="relative z-20 mt-auto pt-12 flex justify-between items-end w-full px-6 md:px-[10vw] font-mono text-xs text-muted tracking-widest pointer-events-auto">
         <div className="space-y-1 text-[10px] md:text-xs">
           <div>T: +961 71 881 429</div>
           <div>T: +1 (619) 873-1807</div>
           <div>E: support@devoops.info</div>
-          <div className="pt-4 text-white/20">© {new Date().getFullYear()} DevOops. All systems operational.</div>
+          <div className="pt-4 text-primary/30">© {new Date().getFullYear()} DevOops. All systems operational.</div>
         </div>
         <div className="text-right flex flex-col items-end">
           <button 
             onClick={scrollToTop}
-            className="group flex flex-col items-center gap-2 hover:text-white transition-colors duration-300"
+            className="group flex flex-col items-center gap-2 hover:text-primary transition-colors duration-300"
           >
             <span className="text-[10px] uppercase">Scroll Top</span>
-            <div className="w-px h-8 bg-white/20 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-full bg-white transform -translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+            <div className="w-px h-8 bg-hud relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-full bg-primary transform -translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
             </div>
           </button>
         </div>

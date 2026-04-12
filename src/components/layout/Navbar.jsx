@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Component1Icon } from "@radix-ui/react-icons";
+import { Component1Icon, SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { useScrambleText } from "../../hooks/useScrambleText";
 import { ScrambleLink } from "../ui/ScrambleLink";
+import { useTheme } from "../../context/ThemeContext";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -23,19 +24,9 @@ function NavMenuItem({ link, isActive, onClick }) {
         to={link.path}
         onClick={onClick}
         onMouseEnter={triggerScramble}
-        className={`flex items-center text-4xl md:text-6xl lg:text-7xl leading-none font-black font-sans uppercase tracking-tighter transition-all duration-300 transform origin-left ${isActive ? "text-white" : "text-white/80"}`}
+        className={`flex items-center leading-none font-black font-sans uppercase tracking-tighter transition-all duration-300 transform origin-left ${isActive ? "bracket-btn text-4xl md:text-6xl lg:text-7xl text-primary" : "text-4xl md:text-6xl lg:text-7xl text-muted hover:text-primary"}`}
       >
-        {isActive && (
-          <span className="font-mono font-light opacity-50 mr-4 md:mr-6 -mt-1 md:-mt-2">
-            [
-          </span>
-        )}
         <span>{displayText}</span>
-        {isActive && (
-          <span className="font-mono font-light opacity-50 ml-4 md:ml-6 -mt-1 md:-mt-2">
-            ]
-          </span>
-        )}
       </Link>
     </div>
   );
@@ -48,6 +39,9 @@ export function Navbar() {
   const menuRef = useRef(null);
   const tl = useRef(null);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
+  
+  const { displayText: contactText, triggerScramble: triggerContactScramble } = useScrambleText("INITIATE_CONTACT");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,24 +104,25 @@ export function Navbar() {
       tl.current?.reverse();
       setIsOpen(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   return (
     <header
       ref={containerRef}
-      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ease-in-out ${isScrolled ? "bg-black pointer-events-auto" : "bg-transparent pointer-events-none"}`}
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ease-in-out ${isScrolled ? "bg-background pointer-events-auto" : "bg-transparent pointer-events-none"}`}
     >
-      <div className="flex justify-between items-center w-full px-8 py-6 relative z-50 pointer-events-auto mix-blend-difference text-white">
-        <div className="flex-1">
+      <div className="flex justify-between items-center w-full px-8 py-6 relative z-50 pointer-events-auto">
+        <div className="flex-1 text-primary">
           <ScrambleLink
             to="/"
-            className="text-3xl font-black font-sans uppercase tracking-tighter transition-opacity"
+            className="text-3xl font-black font-sans uppercase tracking-tighter transition-opacity inline-block"
           >
             DEVOOPS
           </ScrambleLink>
         </div>
 
-        <div className="flex-1 flex justify-center">
+        <div className="flex-1 flex justify-center text-primary">
           <button
             onClick={toggleMenu}
             className="flex items-center gap-3 px-6 py-2 font-mono text-sm tracking-widest uppercase hover:text-black transition-all duration-300 ease-in-out group clip-btn-brutalist"
@@ -137,13 +132,14 @@ export function Navbar() {
           </button>
         </div>
 
-        <div className="flex-1 flex justify-end">
-          <ScrambleLink
+        <div className="flex-1 flex justify-end text-primary">
+          <Link
             to="/contact"
-            className="font-mono text-sm tracking-widest uppercase transition-opacity whitespace-nowrap"
+            onMouseEnter={triggerContactScramble}
+            className="bracket-btn font-mono text-[13px] md:text-[15px] tracking-widest uppercase transition-opacity whitespace-nowrap"
           >
-            [ INITIATE_CONTACT ]
-          </ScrambleLink>
+            <span>{contactText}</span>
+          </Link>
         </div>
       </div>
 
@@ -153,12 +149,12 @@ export function Navbar() {
         style={{ clipPath: "inset(0 0 100% 0)" }}
       >
         <div className="absolute inset-0 z-0 pointer-events-none opacity-15">
-          <div className="absolute top-1/2 left-0 w-full h-px bg-white"></div>
-          <div className="absolute top-0 left-1/2 w-px h-full bg-white"></div>
-          <div className="absolute top-8 left-8 w-8 h-px bg-white"></div>
-          <div className="absolute top-8 left-8 w-px h-8 bg-white"></div>
-          <div className="absolute bottom-8 right-8 w-8 h-px bg-white"></div>
-          <div className="absolute bottom-8 right-8 w-px h-8 bg-white"></div>
+          <div className="absolute top-1/2 left-0 w-full h-px bg-primary"></div>
+          <div className="absolute top-0 left-1/2 w-px h-full bg-primary"></div>
+          <div className="absolute top-8 left-8 w-8 h-px bg-primary"></div>
+          <div className="absolute top-8 left-8 w-px h-8 bg-primary"></div>
+          <div className="absolute bottom-8 right-8 w-8 h-px bg-primary"></div>
+          <div className="absolute bottom-8 right-8 w-px h-8 bg-primary"></div>
         </div>
 
         <nav className="relative z-10 flex flex-col items-start gap-4 md:gap-6">
@@ -179,6 +175,12 @@ export function Navbar() {
           })}
         </nav>
       </div>
+      <button
+        onClick={toggleTheme}
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center p-2 border border-hud bg-background text-muted hover:text-primary transition-all duration-300 pointer-events-auto mix-blend-difference"
+      >
+        {theme === 'dark' ? <SunIcon className="w-6 h-6 md:w-8 md:h-8" /> : <MoonIcon className="w-6 h-6 md:w-8 md:h-8" />}
+      </button>
     </header>
   );
 }

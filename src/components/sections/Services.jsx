@@ -50,13 +50,13 @@ export function Services() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="py-24 md:py-32 border-b border-white/10 relative z-10">
+    <section ref={containerRef} className="py-24 md:py-32 border-b border-hud relative z-10">
       
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 px-4 gap-4">
-        <h2 className="text-5xl md:text-7xl lg:text-8xl font-black font-sans uppercase tracking-tighter leading-none">
+        <h2 className="text-5xl md:text-7xl lg:text-8xl font-black font-sans uppercase tracking-tighter leading-none text-primary">
           Services
         </h2>
-        <span className="font-mono text-xs md:text-sm text-white/50 tracking-widest uppercase md:mb-2">
+        <span className="font-mono text-xs md:text-sm text-muted tracking-widest uppercase md:mb-2">
           [SYS.OPERATIONS]
         </span>
       </div>

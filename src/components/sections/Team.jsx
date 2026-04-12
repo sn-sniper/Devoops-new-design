@@ -22,11 +22,11 @@ export function Team() {
   const { contextSafe } = useGSAP({ scope: viewportRef });
 
   const handleMouseEnter = contextSafe(() => {
-    gsap.to('.viewport-border', { borderColor: 'rgba(255,255,255,0.4)', duration: 0.4, overwrite: 'auto' });
+    gsap.to('.viewport-border', { borderColor: 'var(--color-primary)', duration: 0.4, overwrite: 'auto' });
   });
 
   const handleMouseLeave = contextSafe(() => {
-    gsap.to('.viewport-border', { borderColor: 'rgba(255,255,255,0.15)', duration: 0.6, overwrite: 'auto' });
+    gsap.to('.viewport-border', { borderColor: 'var(--color-hud)', duration: 0.6, overwrite: 'auto' });
   });
 
   useGSAP(() => {
@@ -39,7 +39,7 @@ export function Team() {
   }, { dependencies: [activeIndex] });
 
   return (
-    <section className="h-auto lg:h-screen lg:overflow-hidden border-t border-white/15 grid grid-cols-1 lg:grid-cols-2 relative">
+    <section className="h-auto lg:h-screen lg:overflow-hidden border-t border-hud grid grid-cols-1 lg:grid-cols-2 relative">
       
       <div className="relative flex items-center justify-center p-8 lg:p-16 h-auto lg:h-full z-10">
         
@@ -50,17 +50,17 @@ export function Team() {
           className="relative w-full max-w-sm lg:max-w-md aspect-3/4 pointer-events-auto"
         >
           
-          <div className="tl-bracket absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white/80 -translate-x-px -translate-y-px z-30 pointer-events-none" />
-          <div className="tr-bracket absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-white/80 translate-x-px -translate-y-px z-30 pointer-events-none" />
-          <div className="bl-bracket absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-white/80 -translate-x-px translate-y-px z-30 pointer-events-none" />
-          <div className="br-bracket absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white/80 translate-x-px translate-y-px z-30 pointer-events-none" />
+          <div className="tl-bracket absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary -translate-x-px -translate-y-px z-30 pointer-events-none" />
+          <div className="tr-bracket absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary translate-x-px -translate-y-px z-30 pointer-events-none" />
+          <div className="bl-bracket absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary -translate-x-px translate-y-px z-30 pointer-events-none" />
+          <div className="br-bracket absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary translate-x-px translate-y-px z-30 pointer-events-none" />
 
-          <div className="viewport-border relative w-full h-full overflow-hidden border border-white/15 bg-black/50 z-20">
+          <div className="viewport-border relative w-full h-full overflow-hidden border border-hud bg-background/50 z-20">
           
-          <div className="absolute top-4 left-4 font-mono text-[10px] text-white/50 tracking-widest z-20">
+          <div className="absolute top-4 left-4 font-mono text-[10px] bg-primary text-background px-1.5 py-0.5 tracking-widest z-20">
             [VISUAL_FEED_ACTIVE]
           </div>
-          <div className="absolute bottom-4 right-4 font-mono text-[10px] text-white/50 tracking-widest z-20">
+          <div className="absolute bottom-4 right-4 font-mono text-[10px] bg-primary text-background px-1.5 py-0.5 tracking-widest z-20">
             [{String(activeIndex + 1).padStart(3, '0')}/{String(teamMembers.length).padStart(3, '0')}]
           </div>
 
@@ -80,7 +80,7 @@ export function Team() {
         </div>
       </div>
 
-      <div className="flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-white/15 px-8 lg:px-16 py-12 lg:py-0 h-auto lg:h-full">
+      <div className="flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-hud px-8 lg:px-16 py-12 lg:py-0 h-auto lg:h-full">
         {teamMembers.map((member, idx) => {
           const isActive = activeIndex === idx;
           
@@ -88,20 +88,20 @@ export function Team() {
             <div 
               key={member.id}
               onMouseEnter={() => setActiveIndex(idx)}
-              className="group cursor-pointer py-6 xl:py-8 border-b border-white/10 last:border-b-0"
+              className="group cursor-pointer py-6 xl:py-8 border-b border-hud last:border-b-0"
             >
               <div className={`transition-all duration-500 ease-in-out ${isActive ? 'opacity-100 md:translate-x-4' : 'opacity-30'}`}>
                 
                 <div className="flex flex-wrap items-center gap-3 lg:gap-4 mb-2 xl:mb-3">
-                  <span className="font-mono text-[10px] xl:text-xs text-white bg-white/10 px-2 py-1 uppercase tracking-widest">
+                  <span className="font-mono text-[10px] xl:text-xs text-primary bg-primary/10 px-2 py-1 uppercase tracking-widest">
                     [{member.id}]
                   </span>
-                  <span className="font-mono text-[11px] xl:text-sm tracking-widest text-white/70 uppercase">
+                  <span className="font-mono text-[11px] xl:text-sm tracking-widest text-muted uppercase">
                     {member.role}
                   </span>
                 </div>
 
-                <h3 className="text-lg sm:text-4xl lg:text-4xl xl:text-5xl uppercase font-black font-sans tracking-tight leading-[0.9] wrap-break-word">
+                <h3 className="text-lg sm:text-4xl lg:text-4xl xl:text-5xl uppercase font-black font-sans tracking-tight leading-[0.9] wrap-break-word text-primary">
                   {member.name}
                 </h3>
                 

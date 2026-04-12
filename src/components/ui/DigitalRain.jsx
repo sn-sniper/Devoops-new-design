@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
+import { useTheme } from '../../context/ThemeContext';
 
 export function DigitalRain() {
   const canvasRef = useRef(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -36,7 +38,12 @@ export function DigitalRain() {
       if (deltaTime > interval) {
         lastTime = time - (deltaTime % interval);
 
-        ctx.fillStyle = 'rgba(10, 10, 10, 0.2)';
+        // Trail background color
+        if (theme === 'dark') {
+          ctx.fillStyle = 'rgba(10, 10, 10, 0.2)';
+        } else {
+          ctx.fillStyle = 'rgba(229, 229, 229, 0.2)'; // #e5e5e5 equivalent
+        }
         ctx.fillRect(0, 0, width, height);
 
         ctx.font = `${fontSize}px "Space Mono", monospace`;
@@ -48,10 +55,11 @@ export function DigitalRain() {
           const y = drops[i] * fontSize;
 
           const trailText = charArray[Math.floor(Math.random() * charArray.length)];
-          ctx.fillStyle = 'rgba(255, 255, 255, 1)'; 
+          
+          ctx.fillStyle = theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(10, 10, 10, 1)'; 
           ctx.fillText(trailText, x, y - fontSize);
 
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+          ctx.fillStyle = theme === 'dark' ? 'rgba(255, 255, 255, 0.15)' : 'rgba(10, 10, 10, 0.15)';
           ctx.fillText(text, x, y);
 
           if (y > height && Math.random() > 0.975) {
@@ -90,13 +98,12 @@ export function DigitalRain() {
       window.removeEventListener('resize', handleResize);
       clearTimeout(resizeTimer);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <canvas 
       ref={canvasRef} 
-      className="absolute inset-0 z-0 w-full h-full block pointer-events-none" 
-      style={{ backgroundColor: '#0a0a0a' }}
+      className="absolute inset-0 z-0 w-full h-full block pointer-events-none bg-background" 
     />
   );
 }
