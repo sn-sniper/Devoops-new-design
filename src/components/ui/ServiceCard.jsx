@@ -11,7 +11,7 @@ export function ServiceCard({ title, description, technologies, index, onClick }
 
   const handleMouseEnter = contextSafe(() => {
     triggerScramble();
-    gsap.to('.border-target', { borderColor: 'var(--color-primary)', duration: 0.4, overwrite: 'auto' });
+    gsap.to('.border-target', { borderColor: 'var(--color-accent)', duration: 0.4, overwrite: 'auto' });
   });
 
   const handleMouseLeave = contextSafe(() => {
@@ -35,7 +35,7 @@ export function ServiceCard({ title, description, technologies, index, onClick }
         <div className="br-bracket absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary translate-x-px translate-y-px" />
 
         <div>
-          <div className="font-mono text-xs text-muted mb-6 tracking-widest uppercase">
+          <div className="font-mono text-xs text-muted mb-6 tracking-widest uppercase transition-colors duration-300 group-hover:text-accent">
             [SRV_0{index}]
           </div>
           <h2 className="text-3xl md:text-4xl xl:text-5xl font-black font-sans uppercase tracking-tighter mb-4 text-primary leading-none">

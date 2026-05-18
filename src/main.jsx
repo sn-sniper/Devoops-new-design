@@ -4,9 +4,12 @@ import App from './App';
 import './index.css';
 
 import { ThemeProvider } from './context/ThemeContext';
+import { AudioProvider } from './context/AudioContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ThemeProvider>
-    <App />
+    <AudioProvider>
+      <App />
+    </AudioProvider>
   </ThemeProvider>
 );

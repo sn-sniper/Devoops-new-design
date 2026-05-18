@@ -2,10 +2,11 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Component1Icon, SunIcon, MoonIcon } from "@radix-ui/react-icons";
+import { Component1Icon } from "@radix-ui/react-icons";
 import { useScrambleText } from "../../hooks/useScrambleText";
 import { ScrambleLink } from "../ui/ScrambleLink";
 import { useTheme } from "../../context/ThemeContext";
+import { ThemeToggle } from "../ui/ThemeToggle";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -24,7 +25,7 @@ function NavMenuItem({ link, isActive, onClick }) {
         to={link.path}
         onClick={onClick}
         onMouseEnter={triggerScramble}
-        className={`flex items-center leading-none font-black font-sans uppercase tracking-tighter transition-all duration-300 transform origin-left ${isActive ? "bracket-btn text-4xl md:text-6xl lg:text-7xl text-primary" : "text-4xl md:text-6xl lg:text-7xl text-muted hover:text-primary"}`}
+        className={`flex items-center leading-none font-black font-sans uppercase tracking-tighter transition-all duration-300 transform origin-left ${isActive ? "bracket-btn !border-accent/40 text-4xl md:text-6xl lg:text-7xl text-primary" : "text-4xl md:text-6xl lg:text-7xl text-muted hover:text-primary"}`}
       >
         <span>{displayText}</span>
       </Link>
@@ -39,7 +40,7 @@ export function Navbar() {
   const menuRef = useRef(null);
   const tl = useRef(null);
   const location = useLocation();
-  const { theme, toggleTheme } = useTheme();
+  useTheme();
   
   const { displayText: contactText, triggerScramble: triggerContactScramble } = useScrambleText("INITIATE_CONTACT");
 
@@ -116,7 +117,7 @@ export function Navbar() {
         <div className="flex-1 text-primary">
           <ScrambleLink
             to="/"
-            className="text-3xl font-black font-sans uppercase tracking-tighter transition-opacity inline-block"
+            className="text-3xl font-black font-sans uppercase tracking-tighter inline-block"
           >
             DEVOOPS
           </ScrambleLink>
@@ -136,7 +137,7 @@ export function Navbar() {
           <Link
             to="/contact"
             onMouseEnter={triggerContactScramble}
-            className="bracket-btn font-mono text-[13px] md:text-[15px] tracking-widest uppercase transition-opacity whitespace-nowrap"
+            className="bracket-btn font-mono text-[13px] md:text-[15px] tracking-widest uppercase transition-colors duration-150 ease-in-out hover:text-accent whitespace-nowrap"
           >
             <span>{contactText}</span>
           </Link>
@@ -175,12 +176,7 @@ export function Navbar() {
           })}
         </nav>
       </div>
-      <button
-        onClick={toggleTheme}
-        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center p-2 border border-hud bg-background text-muted hover:text-primary transition-all duration-300 pointer-events-auto mix-blend-difference"
-      >
-        {theme === 'dark' ? <SunIcon className="w-6 h-6 md:w-8 md:h-8" /> : <MoonIcon className="w-6 h-6 md:w-8 md:h-8" />}
-      </button>
+      <ThemeToggle />
     </header>
   );
 }

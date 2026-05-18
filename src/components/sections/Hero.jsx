@@ -42,7 +42,7 @@ export function Hero() {
         
         <div className="mt-12 flex flex-col md:flex-row justify-between items-start md:items-end w-full gap-8 border-t border-hud pt-8">
           <div className="flex-1">
-            <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide mb-2 text-primary">
+            <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide mb-2 text-accent">
               Secure your vision with our Algorithms.
             </h2>
             <p className="font-mono tracking-widest text-sm text-muted uppercase">

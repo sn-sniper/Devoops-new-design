@@ -30,7 +30,7 @@ function FAQItem({ faq, index }) {
         className="w-full py-8 flex justify-between items-center text-left hover:bg-primary/5 transition-colors px-4 group text-primary"
       >
         <span className="font-mono text-sm text-muted mr-8">0{index + 1}</span>
-        <span className="flex-1 text-2xl font-bold uppercase tracking-tight">{faq.q}</span>
+        <span className={`flex-1 text-2xl font-bold uppercase tracking-tight transition-colors duration-300 ${isOpen ? 'text-accent' : ''}`}>{faq.q}</span>
         <Plus className={`w-6 h-6 transform transition-transform duration-500 ${isOpen ? 'rotate-45' : ''}`} />
       </button>
       <div 
@@ -52,7 +52,7 @@ export function FAQ() {
     <section className="py-24 border-b border-hud">
       <div className="px-4 mb-16 text-primary">
         <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight">INDEXED DATA</h2>
-        <span className="font-mono text-sm text-muted">[FAQ.MODULE]</span>
+        <span className="font-mono text-sm text-accent">[FAQ.MODULE]</span>
       </div>
       <div>
         {faqs.map((faq, i) => (

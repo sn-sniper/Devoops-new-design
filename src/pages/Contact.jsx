@@ -10,8 +10,9 @@ export default function Contact() {
         <h1 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter mb-4 text-primary">
           INITIATE <br /> SEQUENCE
         </h1>
-        <p className="font-mono text-muted text-sm tracking-widest uppercase">
-          SECURE CONNECTION ESTABLISHED. AWAITING INPUT.
+        <p className="font-mono text-muted text-sm tracking-widest uppercase flex items-center flex-wrap gap-y-2">
+          SECURE CONNECTION ESTABLISHED. <span className="text-accent ml-1">AWAITING INPUT</span>
+          <span className="inline-block w-2 h-4 bg-accent ml-2 terminal-cursor" />
         </p>
       </div>
 
@@ -19,33 +20,33 @@ export default function Contact() {
         className="grid grid-cols-1 md:grid-cols-2 gap-12"
         onSubmit={(e) => e.preventDefault()}
       >
-        <div className="flex flex-col">
-          <label className="font-mono text-xs text-muted mb-2 uppercase tracking-widest">
+        <div className="flex flex-col group">
+          <label className="font-mono text-xs text-muted mb-2 uppercase tracking-widest transition-colors duration-300 group-focus-within:text-accent">
             [CLIENT.EMAIL]
           </label>
           <input
             type="email"
-            className="bg-transparent border-b border-hud pb-2 text-xl focus:outline-none focus:border-primary transition-colors uppercase font-mono placeholder:text-primary/20 text-primary"
+            className="bg-transparent border-b border-hud pb-2 text-xl focus:outline-none focus:border-accent transition-colors uppercase font-mono placeholder:text-primary/20 text-primary"
             placeholder="ENTER EMAIL"
           />
         </div>
-        <div className="flex flex-col">
-          <label className="font-mono text-xs text-muted mb-2 uppercase tracking-widest">
+        <div className="flex flex-col group">
+          <label className="font-mono text-xs text-muted mb-2 uppercase tracking-widest transition-colors duration-300 group-focus-within:text-accent">
             [COMM.SUBJECT]
           </label>
           <input
             type="text"
-            className="bg-transparent border-b border-hud pb-2 text-xl focus:outline-none focus:border-primary transition-colors uppercase font-mono placeholder:text-primary/20 text-primary"
+            className="bg-transparent border-b border-hud pb-2 text-xl focus:outline-none focus:border-accent transition-colors uppercase font-mono placeholder:text-primary/20 text-primary"
             placeholder="ENTER SUBJECT"
           />
         </div>
-        <div className="flex flex-col md:col-span-2">
-          <label className="font-mono text-xs text-muted mb-2 uppercase tracking-widest">
+        <div className="flex flex-col md:col-span-2 group">
+          <label className="font-mono text-xs text-muted mb-2 uppercase tracking-widest transition-colors duration-300 group-focus-within:text-accent">
             [MISSION.BRIEF / MESSAGE]
           </label>
           <textarea
             rows="4"
-            className="bg-transparent border-b border-hud pb-2 text-xl focus:outline-none focus:border-primary transition-colors uppercase font-mono placeholder:text-primary/20 resize-none text-primary"
+            className="bg-transparent border-b border-hud pb-2 text-xl focus:outline-none focus:border-accent transition-colors uppercase font-mono placeholder:text-primary/20 resize-none text-primary"
             placeholder="TRANSMIT MESSAGE..."
           ></textarea>
         </div>
@@ -63,7 +64,7 @@ export default function Contact() {
               873-1807
             </div>
           </div>
-          <button className="bracket-btn font-mono text-[13px] md:text-[15px] tracking-widest uppercase">
+          <button className="bracket-btn font-mono text-[13px] md:text-[15px] tracking-widest uppercase hover:text-accent">
             <span>EXECUTE_TRANSMISSION</span>
           </button>
         </div>

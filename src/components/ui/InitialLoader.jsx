@@ -3,9 +3,11 @@ import gsap from 'gsap';
 import { useScrambleText } from '../../hooks/useScrambleText';
 import { SunIcon, MoonIcon } from '@radix-ui/react-icons';
 import { useTheme } from '../../context/ThemeContext';
+import { useAudio } from '../../context/AudioContext';
 
 export function InitialLoader({ onComplete }) {
   const [status, setStatus] = useState('initializing'); 
+  const { isMuted, toggleMute } = useAudio();
   const containerRef = useRef(null);
   const btnContainerRef = useRef(null);
   const bracketsRef = useRef(null);
@@ -74,8 +76,16 @@ export function InitialLoader({ onComplete }) {
           >
             ENTER
           </button>
-          <div className="font-mono text-[10px] tracking-[0.3em] text-muted uppercase">
-            [AUDIO RECOMMENDED]
+          <div className="flex flex-col items-center gap-2">
+            <div className="font-mono text-[10px] tracking-[0.3em] text-muted uppercase">
+              [AUDIO_RECOMMENDED]
+            </div>
+            <button 
+              onClick={toggleMute}
+              className="font-mono text-[10px] tracking-widest text-muted hover:text-accent transition-colors uppercase"
+            >
+              [{isMuted ? 'UNMUTE_SYSTEM' : 'MUTE_SYSTEM'}]
+            </button>
           </div>
         </div>
       )}

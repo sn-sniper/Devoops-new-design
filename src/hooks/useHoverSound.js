@@ -1,14 +1,18 @@
 import { useEffect, useRef } from 'react';
+import { useAudio } from '../context/AudioContext';
 
 export function useHoverSound(url = '/hover-sound-btn.mp3') {
   const audioRef = useRef(null);
   const currentTargetRef = useRef(null);
+  const { isMuted } = useAudio();
 
   useEffect(() => {
     audioRef.current = new Audio(url);
     audioRef.current.preload = 'auto';
 
     const handleMouseOver = (e) => {
+      if (isMuted) return;
+
       const target = e.target.closest('a, button, [role="button"], .cursor-pointer');
       
       if (target && target !== currentTargetRef.current) {
@@ -30,5 +34,5 @@ export function useHoverSound(url = '/hover-sound-btn.mp3') {
     return () => {
       document.removeEventListener('mouseover', handleMouseOver);
     };
-  }, [url]);
+  }, [url, isMuted]);
 }

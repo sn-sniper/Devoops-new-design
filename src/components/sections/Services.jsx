@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom';
 import { ServiceCard } from '../ui/ServiceCard';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -56,9 +57,12 @@ export function Services() {
         <h2 className="text-5xl md:text-7xl lg:text-8xl font-black font-sans uppercase tracking-tighter leading-none text-primary">
           Services
         </h2>
-        <span className="font-mono text-xs md:text-sm text-muted tracking-widest uppercase md:mb-2">
+        <Link 
+          to="/services"
+          className="font-mono text-xs md:text-sm text-muted tracking-widest uppercase md:mb-2 hover:text-accent transition-colors duration-300"
+        >
           [SYS.OPERATIONS]
-        </span>
+        </Link>
       </div>
 
       <div className="home-services-grid grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative z-20 px-4 md:px-0">

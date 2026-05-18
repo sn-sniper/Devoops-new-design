@@ -27,7 +27,7 @@ export function About() {
   return (
     <section className="py-32 px-4 border-b border-hud" ref={textRef}>
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-sm font-mono tracking-widest text-muted mb-12">[ABOUT_DEVOOPS]</h2>
+        <h2 className="text-sm font-mono tracking-widest text-accent mb-12">[ABOUT_DEVOOPS]</h2>
         <div className="text-3xl md:text-5xl lg:text-7xl font-bold uppercase leading-[1.1] mb-16">
           <div className="overflow-hidden"><div className="reveal-line">SHAPING DIGITAL SINCE 2022.</div></div>
         </div>
